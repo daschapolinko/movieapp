@@ -1,0 +1,6 @@
+.search {
+    display: block;
+    width: min(100%, 940px);
+    height: 40px;
+    margin: 0 auto;
+}
