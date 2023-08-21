@@ -19,14 +19,14 @@ export default class MovieList extends Component {
 
   render() {
     const genresArr = this.context;
-    const { status, ...movieProps } = this.props;
-    const errorMessage = status === 'error' ? <ErrorMessage /> : null;
+    const { status, errorMessage, ...movieProps } = this.props;
+    const errorMes = status === 'error' ? <ErrorMessage errorMessage={errorMessage} /> : null;
     const spinner = status === 'loading' ? <Spin indicator={this.antIcon} /> : null;
     const content = status === 'done' ? <Movies {...movieProps} genresArr={genresArr} /> : null;
 
     return (
       <div className="movie-list">
-        {errorMessage}
+        {errorMes}
         {spinner}
         {content}
       </div>
@@ -56,7 +56,7 @@ function Movies({ movies, onChange, rateMovie, genresArr, ...pagProps }) {
   );
 }
 
-function ErrorMessage() {
+function ErrorMessage(errorMessage) {
   return (
     <Space
       direction="vertical"
@@ -65,7 +65,7 @@ function ErrorMessage() {
       }}
     >
       <Alert
-        message="Error Text"
+        message={errorMessage}
         description="Error Description Error Description Error Description Error Description"
         type="error"
       />

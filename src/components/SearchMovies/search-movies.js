@@ -9,6 +9,7 @@ export default class SearchMovies extends Component {
 
   state = {
     status: 'done',
+    errorMessage: '',
     movies: [],
     total: null,
     current: 1,
@@ -23,6 +24,7 @@ export default class SearchMovies extends Component {
   onError = (e) => {
     this.setState({
       status: 'error',
+      errorMessage: e,
     });
     throw new Error(e);
   };
@@ -51,13 +53,14 @@ export default class SearchMovies extends Component {
   };
 
   render() {
-    const { movies, status, total, current } = this.state;
+    const { movies, status, errorMessage, total, current } = this.state;
     return (
       <>
         <SearchBar onSearch={this.fetchMovies} />
         <MovieList
           movies={movies}
           status={status}
+          errorMessage={errorMessage}
           current={current}
           total={total}
           onChange={this.onChange}
