@@ -26,7 +26,6 @@ export default class SearchMovies extends Component {
       status: 'error',
       errorMessage: e,
     });
-    alert(e);
   };
 
   fetchMovies = (query, page = 1) => {
