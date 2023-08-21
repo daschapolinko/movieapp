@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin, Alert, Space, Pagination } from 'antd';
+import { Spin, Alert, Pagination } from 'antd';
 
 import './movie-list.css';
 import MovieCard from '../MovieCard';
@@ -58,17 +58,10 @@ function Movies({ movies, onChange, rateMovie, genresArr, ...pagProps }) {
 
 function ErrorMessage(errorMessage) {
   return (
-    <Space
-      direction="vertical"
-      style={{
-        width: '100%',
-      }}
-    >
-      <Alert
-        message={errorMessage}
-        description="Error Description Error Description Error Description Error Description"
-        type="error"
-      />
-    </Space>
+    <Alert
+      message={errorMessage}
+      description="Error Description Error Description Error Description Error Description"
+      type="error"
+    />
   );
 }
