@@ -1,4 +1,4 @@
-.movie-list {
+.movies {
     padding-top: 20px;
     display: flex;
     flex-direction: row;
@@ -6,4 +6,11 @@
     gap: 20px;
     box-sizing: border-box;
     justify-content: space-evenly;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
 }

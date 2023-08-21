@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { createContext } from 'react';
 
 import MovieService from '../../services/movie-service';
@@ -10,4 +9,10 @@ const genres = await movieService
   .then((res) => res.genres)
   .catch((e) => console.error(e));
 
+const sesId = await movieService
+  .newGuestSesson()
+  .then((res) => res)
+  .catch((e) => console.error(e));
+
 export const GenresContext = createContext(await genres);
+export const SessionContext = createContext(await sesId);

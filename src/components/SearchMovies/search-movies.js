@@ -1,11 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
 
 import MovieList from '../MovieList';
 import SearchBar from '../SearchBar';
 import MovieService from '../../services/movie-service';
-
-const pageSize = 6;
 
 export default class SearchMovies extends Component {
   movieService = new MovieService();
@@ -24,22 +21,28 @@ export default class SearchMovies extends Component {
   };
 
   onError = (e) => {
-    console.error(e);
     this.setState({
       status: 'error',
     });
+    throw new Error(e);
   };
 
   fetchMovies = (query, page = 1) => {
+    const { sesId } = this.props;
     this.setState({ current: page, query, status: 'loading' });
     if (query) {
       this.movieService
-        .searchMovies(query, page)
+        .searchMovies(sesId, query, page)
         .then(this.onMoviesLoaded)
         .catch((e) => this.onError(e));
     } else {
       this.setState({ status: 'loading' });
     }
+  };
+
+  rateMovie = (movieId, rate) => {
+    const { sesId } = this.props;
+    this.movieService.rateMovie(sesId, movieId, rate);
   };
 
   onChange = (page) => {
@@ -49,7 +52,6 @@ export default class SearchMovies extends Component {
 
   render() {
     const { movies, status, total, current } = this.state;
-
     return (
       <>
         <SearchBar onSearch={this.fetchMovies} />
@@ -59,7 +61,7 @@ export default class SearchMovies extends Component {
           current={current}
           total={total}
           onChange={this.onChange}
-          pageSize={pageSize}
+          rateMovie={this.rateMovie}
         />
       </>
     );

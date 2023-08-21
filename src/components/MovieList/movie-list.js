@@ -5,7 +5,7 @@ import { Spin, Alert, Space, Pagination } from 'antd';
 
 import './movie-list.css';
 import MovieCard from '../MovieCard';
-import { GenresContext } from '../GenresContext';
+import { GenresContext } from '../Context';
 
 export default class MovieList extends Component {
   antIcon = (
@@ -36,16 +36,22 @@ export default class MovieList extends Component {
 
 MovieList.contextType = GenresContext;
 
-function Movies({ movies, onChange, genresArr, ...pagProps }) {
+function Movies({ movies, onChange, rateMovie, genresArr, ...pagProps }) {
   const elements = movies.map((movie) => {
     const { id, ...props } = movie;
-    return <MovieCard key={id} genresArr={genresArr} {...props} />;
+    return <MovieCard key={id} genresArr={genresArr} rateMovie={(rate) => rateMovie(id, rate)} {...props} />;
   });
 
   return (
     <>
-      {elements}
-      <Pagination onChange={(page) => onChange(page)} {...pagProps} showSizeChanger={false} />
+      <div className="movies">{elements}</div>
+      <Pagination
+        hideOnSinglePage
+        size={document.documentElement.clientWidth < 340 ? 'small' : 'default'}
+        onChange={(page) => onChange(page)}
+        {...pagProps}
+        showSizeChanger={false}
+      />
     </>
   );
 }
